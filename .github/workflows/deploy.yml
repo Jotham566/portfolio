@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter Web Deploy
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
 
     - name: Debug - Check deployment status
       if: failure()
-      run: 
+      run: |
         echo "Deployment step failed"
         echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
         echo "Error message: ${{ steps.deployment.outputs.error }}"

@@ -33,11 +33,7 @@ jobs:
       run: |
         sed -i 's|<base href="$FLUTTER_BASE_HREF">|<base href="/portfolio/">|g' build/web/index.html
 
-    - name: List build contents
-      run: |
-        echo "Content of build/web directory:"
-        ls -l build/web
-    
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
 

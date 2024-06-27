@@ -167,10 +167,10 @@
       "name": "portfolio",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "3.4"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-06-27T05:47:38.216270Z",
+  "generated": "2024-06-27T07:01:55.613049Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/jothamwambi/Library/CloudStorage/OneDrive-Personal/Documents/Flutter/flutter",

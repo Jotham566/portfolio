@@ -23,7 +23,7 @@ jobs:
         node-version: '20'
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.10.0'
+        flutter-version: '3.13.0'
         channel: 'stable'
     
     - name: Get dependencies
@@ -49,7 +49,7 @@ jobs:
 
     - name: Debug - Check deployment status
       if: failure()
-      run: |
+      run: 
         echo "Deployment step failed"
         echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
         echo "Error message: ${{ steps.deployment.outputs.error }}"

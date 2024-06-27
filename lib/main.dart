@@ -15,88 +15,74 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(),
+      home: const PortfolioPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class PortfolioPage extends StatelessWidget {
+  const PortfolioPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jotham Martin Wambi - Data Science Portfolio'),
+        title: const Text('Jotham Martin Wambi'),
+        actions: [
+          TextButton(child: const Text('About'), onPressed: () {}),
+          TextButton(child: const Text('Projects'), onPressed: () {}),
+          TextButton(child: const Text('Skills'), onPressed: () {}),
+          TextButton(child: const Text('Contact'), onPressed: () {}),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Center(
-                child: CircleAvatar(
-                  radius: 75,
-                  backgroundImage: AssetImage('assets/profile_picture.png'),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  'Your Name',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              Center(
-                child: Text(
-                  'Data Scientist | Machine Learning Engineer',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'About Me',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const Text(
-                'Brief introduction about yourself, your passion for data science, and your career goals.',
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Projects',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const ProjectCard(
-                title: 'Project 1',
-                description: 'Description of project 1',
-                imageAsset: 'assets/project1.jpg',
-                tags: ['Python', 'Machine Learning'],
-              ),
-              const ProjectCard(
-                title: 'Project 2',
-                description: 'Description of project 2',
-                imageAsset: 'assets/project2.jpg',
-                tags: ['R', 'Data Visualization'],
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Skills',
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              const Wrap(
-                spacing: 8.0,
-                runSpacing: 4.0,
-                children: <Widget>[
-                  Chip(label: Text('Python')),
-                  Chip(label: Text('R')),
-                  Chip(label: Text('SQL')),
-                  Chip(label: Text('Machine Learning')),
-                  Chip(label: Text('Data Visualization')),
-                  Chip(label: Text('Statistical Analysis')),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1200),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Data Science Portfolio',
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                  const SizedBox(height: 32),
+                  const ProjectCard(
+                    title: 'Project 1',
+                    description: 'Description of project 1',
+                    imageUrl: 'assets/project1.jpg',
+                    tags: ['Python', 'Machine Learning'],
+                  ),
+                  const SizedBox(height: 16),
+                  const ProjectCard(
+                    title: 'Project 2',
+                    description: 'Description of project 2',
+                    imageUrl: 'assets/project2.jpg',
+                    tags: ['R', 'Data Visualization'],
+                  ),
+                  const SizedBox(height: 32),
+                  Text(
+                    'Skills',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const SizedBox(height: 16),
+                  const Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      Chip(label: Text('Python')),
+                      Chip(label: Text('R')),
+                      Chip(label: Text('SQL')),
+                      Chip(label: Text('Machine Learning')),
+                      Chip(label: Text('Data Visualization')),
+                      Chip(label: Text('Statistical Analysis')),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -107,37 +93,36 @@ class HomePage extends StatelessWidget {
 class ProjectCard extends StatelessWidget {
   final String title;
   final String description;
-  final String imageAsset;
+  final String imageUrl;
   final List<String> tags;
 
   const ProjectCard({
     super.key,
     required this.title,
     required this.description,
-    required this.imageAsset,
+    required this.imageUrl,
     required this.tags,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      elevation: 4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Image.asset(imageAsset),
+        children: [
+          Image.asset(imageUrl, fit: BoxFit.cover, height: 200, width: double.infinity),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+              children: [
                 Text(title, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text(description),
                 const SizedBox(height: 8),
                 Wrap(
-                  spacing: 8.0,
-                  runSpacing: 4.0,
+                  spacing: 8,
                   children: tags.map((tag) => Chip(label: Text(tag))).toList(),
                 ),
               ],

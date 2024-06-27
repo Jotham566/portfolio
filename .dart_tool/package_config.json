@@ -51,7 +51,7 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/jothamwambi/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2",
+      "rootUri": "file:///Users/jothamwambi/.pub-cache/hosted/pub.dev/flutter_lints-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
@@ -81,9 +81,9 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/jothamwambi/.pub-cache/hosted/pub.dev/lints-3.0.0",
+      "rootUri": "file:///Users/jothamwambi/.pub-cache/hosted/pub.dev/lints-4.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.1"
     },
     {
       "name": "matcher",
@@ -170,7 +170,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-06-27T07:01:55.613049Z",
+  "generated": "2024-06-27T08:00:37.211831Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/jothamwambi/Library/CloudStorage/OneDrive-Personal/Documents/Flutter/flutter",

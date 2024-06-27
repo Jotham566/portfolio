@@ -254,9 +254,16 @@ class WhoAmISection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
-                  radius: 100,
-                  backgroundImage: AssetImage('assets/profile_picture.png'),
+                Container(
+                  width: 200, // Width of the square avatar
+                  height: 300, // Height of the square avatar
+                  decoration: BoxDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage('assets/profile_picture.png'),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(20), // Adjust the value for rounded corners
+                  ),
                 ),
                 const SizedBox(width: 32),
                 Expanded(

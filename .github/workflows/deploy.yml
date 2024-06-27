@@ -18,22 +18,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '20'
     - uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.13.0'
+        flutter-version: '3.16.0'
         channel: 'stable'
     
     - name: Get dependencies
       run: flutter pub get
     
     - name: Build web
-      run: flutter build web
-    
-    - name: Debug - List build directory
-      run: ls -R build/web
+      run: flutter build web --release --no-tree-shake-icons
     
     - name: Setup Pages
       uses: actions/configure-pages@v3
@@ -47,9 +41,7 @@ jobs:
       id: deployment
       uses: actions/deploy-pages@v2
 
-    - name: Debug - Check deployment status
-      if: failure()
+    - name: Clean Flutter cache
       run: |
-        echo "Deployment step failed"
-        echo "GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
-        echo "Error message: ${{ steps.deployment.outputs.error }}"
+        flutter clean
+        flutter pub get

@@ -26,25 +26,90 @@ class PortfolioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Header(),
-            HeroSection(),
-            WhoAmISection(),
-            PortfolioSection(),
-            ExperienceSection(),
-            EducationSection(),
-            TestimonialsSection(),
-            ContactSection(),
-            Footer(),
-          ],
-        ),
+    final heroKey = GlobalKey();
+    final aboutKey = GlobalKey();
+    final portfolioKey = GlobalKey();
+    final contactKey = GlobalKey();
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            floating: true,
+            expandedHeight: 100.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Jotham Martin Wambi',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Scrollable.ensureVisible(
+                            heroKey.currentContext!,
+                            duration: const Duration(seconds: 1),
+                          );
+                        },
+                        child: const Text('HOME'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Scrollable.ensureVisible(
+                            aboutKey.currentContext!,
+                            duration: const Duration(seconds: 1),
+                          );
+                        },
+                        child: const Text('ABOUT'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Scrollable.ensureVisible(
+                            portfolioKey.currentContext!,
+                            duration: const Duration(seconds: 1),
+                          );
+                        },
+                        child: const Text('PORTFOLIO'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Scrollable.ensureVisible(
+                            contactKey.currentContext!,
+                            duration: const Duration(seconds: 1),
+                          );
+                        },
+                        child: const Text('CONTACT'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                HeroSection(key: heroKey),
+                WhoAmISection(key: aboutKey),
+                PortfolioSection(key: portfolioKey),
+                const ExperienceSection(),
+                const EducationSection(),
+                const TestimonialsSection(),
+                ContactSection(key: contactKey),
+                const Footer(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -59,34 +124,6 @@ class Footer extends StatelessWidget {
           '© 2024 Jotham Martin Wambi. All rights reserved.',
           style: TextStyle(color: Colors.white),
         ),
-      ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Jotham Martin Wambi',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: [
-              TextButton(onPressed: () {}, child: const Text('HOME')),
-              TextButton(onPressed: () {}, child: const Text('ABOUT')),
-              TextButton(onPressed: () {}, child: const Text('PORTFOLIO')),
-              TextButton(onPressed: () {}, child: const Text('CONTACT')),
-            ],
-          ),
-        ],
       ),
     );
   }
@@ -479,11 +516,6 @@ class ContactSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
       child: Row(
         children: [
-          const CircleAvatar(
-            radius: 100,
-            backgroundImage: AssetImage('assets/image.png'),
-          ),
-          const SizedBox(width: 32),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -494,8 +526,13 @@ class ContactSection extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const Text("Phone Number"),
+                const Text("--"),
+                const SizedBox(height: 16),
                 const Text("Email"),
+                const Text("mdancho@business-science.io"),
+                const SizedBox(height: 16),
                 const Text("Address"),
+                const Text("--"),
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () {},
@@ -504,6 +541,11 @@ class ContactSection extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          const SizedBox(width: 32),
+          const CircleAvatar(
+            radius: 100,
+            backgroundImage: AssetImage('assets/profile_picture.png'),
           ),
         ],
       ),

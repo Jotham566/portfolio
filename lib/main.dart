@@ -138,15 +138,11 @@ class HeroSection extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                image: AssetImage('assets/code_editor_image.png'),
-                fit: BoxFit.contain,
-              ),
+            child: Image.asset(
+              'assets/business_analysis.jpg',
+              fit: BoxFit.cover,
             ),
           ),
         ],
@@ -485,7 +481,7 @@ class ContactSection extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 100,
-            backgroundImage: AssetImage('assets/profile_picture.png'),
+            backgroundImage: AssetImage('assets/image.png'),
           ),
           const SizedBox(width: 32),
           Expanded(

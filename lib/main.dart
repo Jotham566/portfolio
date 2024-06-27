@@ -33,73 +33,85 @@ class PortfolioPage extends StatelessWidget {
     final contactKey = GlobalKey();
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            floating: true,
-            expandedHeight: 100.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 1000),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Jotham Martin Wambi',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              scrollToSection(scrollController, heroKey);
-                            },
-                            child: const Text('HOME'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              scrollToSection(scrollController, aboutKey);
-                            },
-                            child: const Text('ABOUT'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              scrollToSection(scrollController, portfolioKey);
-                            },
-                            child: const Text('PORTFOLIO'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              scrollToSection(scrollController, contactKey);
-                            },
-                            child: const Text('CONTACT'),
-                          ),
-                        ],
-                      ),
-                    ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(0, 194, 203, 210), // Light blue color
+              Color.fromARGB(0, 251, 251, 252), // Light sky blue color
+            ],
+          ),
+        ),
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              expandedHeight: 100.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1000),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Jotham Martin Wambi',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, heroKey);
+                              },
+                              child: const Text('HOME'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, aboutKey);
+                              },
+                              child: const Text('ABOUT'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, portfolioKey);
+                              },
+                              child: const Text('PORTFOLIO'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, contactKey);
+                              },
+                              child: const Text('CONTACT'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                HeroSection(key: heroKey),
-                WhoAmISection(key: aboutKey),
-                PortfolioSection(key: portfolioKey),
-                const ExperienceSection(),
-                const EducationSection(),
-                const TestimonialsSection(),
-                ContactSection(key: contactKey),
-                const Footer(),
-              ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  HeroSection(key: heroKey),
+                  WhoAmISection(key: aboutKey),
+                  PortfolioSection(key: portfolioKey),
+                  const ExperienceSection(),
+                  const EducationSection(),
+                  const TestimonialsSection(),
+                  ContactSection(key: contactKey),
+                  const Footer(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -115,6 +127,7 @@ class PortfolioPage extends StatelessWidget {
     }
   }
 }
+
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -140,13 +153,22 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -155,12 +177,12 @@ class HeroSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Hello, I'm Jotham.",
+                        "Hello, I'm Jotham Martin Wambi.",
                         style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 16),
                       const Text(
-                        "Data Scientist & \nMachine Learning Engineer",
+                        "Data Scientist, Trainer & Mentor",
                         style: TextStyle(fontSize: 28, color: Colors.grey),
                       ),
                       const SizedBox(height: 16),
@@ -171,8 +193,11 @@ class HeroSection extends StatelessWidget {
                       const SizedBox(height: 32),
                       ElevatedButton(
                         onPressed: () {},
+                        // onHover shows a white background, black border, and white text
+                        
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                        child: const Text('Contact Jotham'),
+                        child: const Text('Contact Jotham', style: TextStyle(color: Colors.white)
+                        ),
                       ),
                       const SizedBox(height: 32),
                       Row(
@@ -210,13 +235,22 @@ class WhoAmISection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -262,33 +296,43 @@ class WhoAmISection extends StatelessWidget {
 }
 
 
+
 class PortfolioSection extends StatelessWidget {
   const PortfolioSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Portfolio",
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: 32),
                 PortfolioItem(
                   title: "Sales Demand Forecast Application",
                   description: "This application helps Marketing & Sales identify trends in customer purchasing behavior and plan for future demand. Predictive Dashboard Course using Machine Learning.",
                   image: 'assets/project1.jpg',
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: 32),
                 PortfolioItem(
                   title: "Product Price Recommendation",
                   description: "This application helps Marketing & R&D Teams automate product price and predict new products. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
@@ -347,19 +391,29 @@ class PortfolioItem extends StatelessWidget {
 }
 
 
+
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -432,27 +486,37 @@ class ExperienceItem extends StatelessWidget {
 }
 
 
+
 class EducationSection extends StatelessWidget {
   const EducationSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Education",
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(child: EducationItem(university: "Penn State University", degree: "Master of Business Administration (MBA)", duration: "2014-2015")),
@@ -494,27 +558,37 @@ class EducationItem extends StatelessWidget {
 }
 
 
+
 class TestimonialsSection extends StatelessWidget {
   const TestimonialsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
+          child: Container(
+            padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Testimonials",
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 32),
+                SizedBox(height: 32),
                 Row(
                   children: [
                     Expanded(child: TestimonialItem(
@@ -578,14 +652,22 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1000),
           child: Container(
-            color: Colors.white,
             padding: const EdgeInsets.all(32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFE3F2FD), // Light blue color
+                  Color(0xFFBBDEFB), // Light sky blue color
+                ],
+              ),
+            ),
             child: Row(
               children: [
                 const CircleAvatar(
@@ -670,5 +752,6 @@ class ContactSection extends StatelessWidget {
     );
   }
 }
+
 
 

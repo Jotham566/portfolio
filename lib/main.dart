@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jotham Martin Wambi Portfolio',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
         fontFamily: 'Roboto',
       ),
       home: const PortfolioPage(),
@@ -46,6 +46,24 @@ class PortfolioPage extends StatelessWidget {
   }
 }
 
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      color: Colors.black,
+      child: const Center(
+        child: Text(
+          '© 2024 Jotham Martin Wambi. All rights reserved.',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
 class Header extends StatelessWidget {
   const Header({super.key});
 
@@ -57,8 +75,8 @@ class Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Matt Dancho',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red),
+            'Jotham Martin Wambi',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           Row(
             children: [
@@ -82,48 +100,53 @@ class HeroSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Hello, I'm Jotham.",
-                  style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+                  "Hello, I'm Jotham Martin Wambi.",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  "Data Scientist, Trainer &\nMentor",
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  "Data Scientist, Trainer & Mentor",
+                  style: TextStyle(fontSize: 28, color: Colors.grey),
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  "Jotham is the founder of Business Science, an online data science school that helps students become a data scientist in 6-months or less.",
-                  style: TextStyle(fontSize: 18),
+                  "I help data scientists become more valuable. I've written several books on data science and created courses that help students become a data scientist in 6 months or less.",
+                  style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                  child: const Text('Contact Matt'),
+                  child: const Text('Contact Jotham'),
                 ),
                 const SizedBox(height: 32),
-                const Row(
+                Row(
                   children: [
-                    IconButton(icon: FaIcon(FontAwesomeIcons.linkedin), onPressed: null),
-                    IconButton(icon: FaIcon(FontAwesomeIcons.github), onPressed: null),
-                    IconButton(icon: FaIcon(FontAwesomeIcons.twitter), onPressed: null),
-                    IconButton(icon: FaIcon(FontAwesomeIcons.youtube), onPressed: null),
+                    IconButton(icon: const FaIcon(FontAwesomeIcons.linkedin), onPressed: () {}),
+                    IconButton(icon: const FaIcon(FontAwesomeIcons.github), onPressed: () {}),
+                    IconButton(icon: const FaIcon(FontAwesomeIcons.twitter), onPressed: () {}),
+                    IconButton(icon: const FaIcon(FontAwesomeIcons.youtube), onPressed: () {}),
                   ],
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: Image.network(
-              'https://via.placeholder.com/500x300?text=Code+Editor+Image',
-              fit: BoxFit.contain,
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: const DecorationImage(
+                image: AssetImage('assets/code_editor_image.png'),
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ],
@@ -142,11 +165,9 @@ class WhoAmISection extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Image.network(
-              'https://via.placeholder.com/400x400?text=Matt+Image',
-              fit: BoxFit.cover,
-            ),
+          const CircleAvatar(
+            radius: 100,
+            backgroundImage: AssetImage('assets/profile_picture.png'),
           ),
           const SizedBox(width: 32),
           Expanded(
@@ -155,23 +176,23 @@ class WhoAmISection extends StatelessWidget {
               children: [
                 const Text(
                   "Who am I?",
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   "I love helping data scientists. My passion is training. But, when I am not teaching, I am an Entrepreneur & Software Developer.",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   "My way of living is applying data science to business. I create value for companies by understanding the financial cost of problems and delivering a return on investment with my solutions. I enjoy teaching, working with stakeholders, and making better decisions with data.",
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                  child: const Text('About Matt'),
+                  child: const Text('About Jotham'),
                 ),
               ],
             ),
@@ -194,19 +215,19 @@ class PortfolioSection extends StatelessWidget {
         children: [
           Text(
             "Portfolio",
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 32),
           PortfolioItem(
             title: "Sales Demand Forecast Application",
             description: "This application helps Marketing & Sales identify trends in customer purchasing behavior and plan for future demand. Predictive Dashboard Course using Machine Learning.",
-            image: 'https://via.placeholder.com/800x400?text=Sales+Demand+Forecast',
+            image: 'assets/project1.jpg',
           ),
           SizedBox(height: 32),
           PortfolioItem(
             title: "Product Price Recommendation",
             description: "This application helps Marketing & R&D Teams automate product price and predict new products. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
-            image: 'https://via.placeholder.com/800x400?text=Product+Price+Recommendation',
+            image: 'assets/project2.jpg',
           ),
         ],
       ),
@@ -235,12 +256,22 @@ class PortfolioItem extends StatelessWidget {
         const SizedBox(height: 16),
         Text(description),
         const SizedBox(height: 16),
-        Image.network(image, fit: BoxFit.cover),
+        Container(
+          width: 300,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: AssetImage(image),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-          child: const Text('Learn Application'),
+          child: const Text('Launch Application'),
         ),
       ],
     );
@@ -259,34 +290,34 @@ class ExperienceSection extends StatelessWidget {
         children: [
           const Text(
             "Experience",
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 32),
           const ExperienceItem(
             title: "Founder",
             company: "Business Science",
-            duration: "Jan 2017 - Present",
+            duration: "Sept 2018 - Present",
           ),
           const ExperienceItem(
             title: "Director of Product Engineering & Market Development",
             company: "Axion Energy",
-            duration: "Jan 2014 - Jan 2017",
+            duration: "Jan 2017 - Aug 2019",
           ),
           const ExperienceItem(
             title: "Manager of Sales Engineering",
             company: "Axion Power",
-            duration: "Jun 2011 - Jan 2014",
+            duration: "Mar 2014 - Jan 2017",
           ),
           const ExperienceItem(
             title: "Manager of Product Engineering",
             company: "Axion Power",
-            duration: "Feb 2009 - Jun 2011",
+            duration: "Nov 2011 - Mar 2014",
           ),
           const SizedBox(height: 32),
           ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-            child: const Text('Download CV'),
+            child: const Text('Download My Resume'),
           ),
         ],
       ),
@@ -314,7 +345,7 @@ class ExperienceItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          Text(company, style: const TextStyle(color: Colors.red)),
+          Text(company, style: const TextStyle(color: Colors.blue)),
           Text(duration, style: const TextStyle(color: Colors.grey)),
         ],
       ),
@@ -334,14 +365,14 @@ class EducationSection extends StatelessWidget {
         children: [
           Text(
             "Education",
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 32),
           Row(
             children: [
-              Expanded(child: EducationItem(university: "Penn State University")),
-              Expanded(child: EducationItem(university: "University of Pittsburgh")),
-              Expanded(child: EducationItem(university: "Penn State University")),
+              Expanded(child: EducationItem(university: "Penn State University", degree: "Master of Business Administration (MBA)", duration: "2014-2015")),
+              Expanded(child: EducationItem(university: "University of Pittsburgh", degree: "Master of Industrial Engineering", duration: "2006-2010")),
+              Expanded(child: EducationItem(university: "Penn State University", degree: "Bachelor of Mechanical Engineering", duration: "2002-2006")),
             ],
           ),
         ],
@@ -352,15 +383,24 @@ class EducationSection extends StatelessWidget {
 
 class EducationItem extends StatelessWidget {
   final String university;
+  final String degree;
+  final String duration;
 
-  const EducationItem({super.key, required this.university});
+  const EducationItem({super.key, required this.university, required this.degree, required this.duration});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       color: Colors.grey[200],
-      child: Text(university, style: const TextStyle(fontWeight: FontWeight.bold)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(university, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(degree),
+          Text(duration, style: const TextStyle(color: Colors.grey)),
+        ],
+      ),
     );
   }
 }
@@ -377,25 +417,25 @@ class TestimonialsSection extends StatelessWidget {
         children: [
           Text(
             "Testimonials",
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 32),
           Row(
             children: [
               Expanded(child: TestimonialItem(
-                text: "It has helped 6-months ago students have Business Science Course with Matt...",
+                text: "In less than 6 months after starting my first Business Science Course with Matt, I had fully transitioned into a role as a lead data scientist and my life is better for it.",
                 name: "Justin Kernon, PhD",
-                title: "Lead Data Scientist, Insurance Naval",
+                title: "Lead Data Scientist, Northwestern Mutual",
               )),
               Expanded(child: TestimonialItem(
-                text: "Because of all the R courses Matt Davis has provided...",
+                text: "Because of all the R courses Matt Davis has provided, I landed my first Data Scientist role. Setting up shiny dashboards in AWS was extremely helpful during my interview.",
                 name: "Chris Selig",
-                title: "Business Intelligence Developer",
+                title: "Data Scientist",
               )),
               Expanded(child: TestimonialItem(
-                text: "Matt's data time my life. In just 5-10 spare time...",
-                name: "Melanie Hubert-Ciorann",
-                title: "Data Science Business",
+                text: "After your entry into my life, I got a 10% pay raise and then after another 6 months of 26%, and in just another 2 months a 40% hike. I can grab a job wherever I want.",
+                name: "Mohana Krishna Chittoor",
+                title: "Lead Data Scientist, Money View",
               )),
             ],
           ),
@@ -443,11 +483,9 @@ class ContactSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
       child: Row(
         children: [
-          Expanded(
-            child: Image.network(
-              'https://via.placeholder.com/400x400?text=Matt+Image',
-              fit: BoxFit.cover,
-            ),
+          const CircleAvatar(
+            radius: 100,
+            backgroundImage: AssetImage('assets/profile_picture.png'),
           ),
           const SizedBox(width: 32),
           Expanded(
@@ -455,8 +493,8 @@ class ContactSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Contact Matt",
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                  "Contact Jotham",
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 const Text("Phone Number"),
@@ -472,24 +510,6 @@ class ContactSection extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Footer extends StatelessWidget {
-  const Footer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      padding: const EdgeInsets.symmetric(vertical: 32),
-      child: const Center(
-        child: Text(
-          '© 2024 Jotham Martin Wambi. All rights reserved.',
-          style: TextStyle(color: Colors.white),
-        ),
       ),
     );
   }

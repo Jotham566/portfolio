@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
+
 class PortfolioPage extends StatelessWidget {
   const PortfolioPage({super.key});
 
@@ -107,14 +110,18 @@ class PortfolioPage extends StatelessWidget {
                   title: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 1000),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Wrap(
+                        spacing: 8.0, // Adjust spacing as needed
+                        runSpacing: 8.0, // Adjust spacing between lines
+                        alignment: WrapAlignment.spaceBetween,
                         children: [
                           const Text(
                             'Jotham Martin Wambi',
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          Row(
+                          Wrap(
+                            spacing: 8.0, // Adjust spacing as needed
                             children: [
                               TextButton(
                                 onPressed: () {
@@ -143,7 +150,10 @@ class PortfolioPage extends StatelessWidget {
                             ],
                           ),
                         ],
-                      ),
+                      )
+
+
+
                     ),
                   ),
                 ),
@@ -559,6 +569,7 @@ class ExperienceSection extends StatelessWidget {
                 ],
               ),
             ),
+            child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -598,6 +609,7 @@ class ExperienceSection extends StatelessWidget {
           ),
         ),
       ),
+    )
     );
   }
 }

@@ -10,18 +10,18 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="your_project_name">
+  <meta name="apple-mobile-web-app-title" content="portfolio">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Your Project Name</title>
+  <title>portfolio</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "3149520433";
+    const serviceWorkerVersion = "1737629394";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -30,40 +30,17 @@
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
-      _flutter = {
-        loader: {
-          loadEntrypoint: function(options) {
-            return new Promise(function(resolve, reject) {
-              var scriptTag = document.createElement('script');
-              scriptTag.src = "main.dart.js";
-              scriptTag.type = 'application/javascript';
-              scriptTag.onload = function() {
-                resolve(true);
-              };
-              document.body.append(scriptTag);
-            });
-          }
-        }
-      };
-      var loading = document.querySelector('#loading');
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
         }
-      }).then(function(engineInitializer) {
-        loading.textContent = "Initializing engine...";
-        return engineInitializer.initializeEngine();
-      }).then(function(appRunner) {
-        loading.textContent = "Running app...";
-        return appRunner.runApp();
-      }).then(function(app) {
-        // Wait a few milliseconds so users can see the "loaded" text.
-        window.setTimeout(function() {
-          loading.remove();
-        }, 200);
       });
     });
   </script>
-  <div id="loading">Loading...</div>
 </body>
 </html>

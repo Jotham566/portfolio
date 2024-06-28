@@ -19,40 +19,40 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            foregroundColor: WidgetStateProperty.resolveWith<Color>(
-              (Set<WidgetState> states) {
-                if (states.contains(WidgetState.hovered)) {
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
                   return Colors.black; // Change text color to black on hover
                 }
                 return Colors.white; // Default text color
               },
             ),
-            backgroundColor: WidgetStateProperty.resolveWith<Color>(
-              (Set<WidgetState> states) {
-                if (states.contains(WidgetState.hovered)) {
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
                   return Colors.white; // Change background color to white on hover
                 }
                 return Colors.black; // Default background color
               },
             ),
-            overlayColor: WidgetStateProperty.all<Color>(Colors.white),
-            side: WidgetStateProperty.resolveWith<BorderSide>(
-              (Set<WidgetState> states) {
-                if (states.contains(WidgetState.hovered)) {
+            overlayColor: MaterialStateProperty.all<Color>(Colors.white),
+            side: MaterialStateProperty.resolveWith<BorderSide>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered)) {
                   return const BorderSide(color: Colors.black); // Change border color to black on hover
                 }
                 return const BorderSide(color: Colors.transparent); // Default border color
               },
             ),
-            textStyle: WidgetStateProperty.all<TextStyle>(
+            textStyle: MaterialStateProperty.all<TextStyle>(
               const TextStyle(color: Colors.white),
             ),
-            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            elevation: WidgetStateProperty.all<double>(5.0),
+            elevation: MaterialStateProperty.all<double>(5.0),
           ),
         ),
       ),

@@ -320,13 +320,13 @@ class PortfolioSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<PortfolioItem> projects = [
-      PortfolioItem(
+      const PortfolioItem(
         title: "Sales Demand Forecast Application",
         description: "This application helps Marketing & Sales identify trends in customer purchasing behavior and plan for future demand. Predictive Dashboard Course using Machine Learning.",
         image: 'assets/project1.jpg',
         imageOnLeft: true,
       ),
-      PortfolioItem(
+      const PortfolioItem(
         title: "Product Price Recommendation",
         description: "This application helps Marketing & R&D Teams automate product price and predict new products. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
         image: 'assets/project2.jpg',
@@ -430,7 +430,7 @@ class PortfolioItem extends StatelessWidget {
 class ImageContainer extends StatelessWidget {
   final String image;
 
-  const ImageContainer({required this.image});
+  const ImageContainer({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -452,7 +452,7 @@ class TextContainer extends StatelessWidget {
   final String title;
   final String description;
 
-  const TextContainer({required this.title, required this.description});
+  const TextContainer({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {

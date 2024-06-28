@@ -1,6 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,98 +34,85 @@ class PortfolioPage extends StatelessWidget {
     final contactKey = GlobalKey();
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/background.jpg', // Your background image asset
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(0, 194, 203, 210), // Light blue color
+              Color.fromARGB(0, 251, 251, 252), // Light sky blue color
+            ],
           ),
-          // Gradient Overlay
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(128, 194, 203, 210), // Semi-transparent Light blue color
-                  Color.fromARGB(128, 251, 251, 252), // Semi-transparent Light sky blue color
-                ],
-              ),
-            ),
-          ),
-          // Content
-          CustomScrollView(
-            controller: scrollController,
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                floating: true,
-                expandedHeight: 100.0,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 1000),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Jotham Martin Wambi',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  scrollToSection(scrollController, heroKey);
-                                },
-                                child: const Text('HOME'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  scrollToSection(scrollController, aboutKey);
-                                },
-                                child: const Text('ABOUT'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  scrollToSection(scrollController, portfolioKey);
-                                },
-                                child: const Text('PORTFOLIO'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  scrollToSection(scrollController, contactKey);
-                                },
-                                child: const Text('CONTACT'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+        ),
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              expandedHeight: 100.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1000),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Jotham Martin Wambi',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, heroKey);
+                              },
+                              child: const Text('HOME'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, aboutKey);
+                              },
+                              child: const Text('ABOUT'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, portfolioKey);
+                              },
+                              child: const Text('PORTFOLIO'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                scrollToSection(scrollController, contactKey);
+                              },
+                              child: const Text('CONTACT'),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    HeroSection(key: heroKey),
-                    WhoAmISection(key: aboutKey),
-                    PortfolioSection(key: portfolioKey),
-                    const ExperienceSection(),
-                    const EducationSection(),
-                    const TestimonialsSection(),
-                    ContactSection(key: contactKey),
-                    const Footer(),
-                  ],
-                ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  HeroSection(key: heroKey),
+                  WhoAmISection(key: aboutKey),
+                  PortfolioSection(key: portfolioKey),
+                  const ExperienceSection(),
+                  const EducationSection(),
+                  const TestimonialsSection(),
+                  ContactSection(key: contactKey),
+                  const Footer(),
+                ],
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -133,14 +120,10 @@ class PortfolioPage extends StatelessWidget {
   void scrollToSection(ScrollController controller, GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
-      final position = controller.position;
-      final offset = position.pixels;
-      final targetOffset = (context.findRenderObject() as RenderBox).localToGlobal(Offset.zero).dy + offset;
-
-      controller.animateTo(
-        targetOffset,
-        duration: const Duration(seconds: 2),
-        curve: Curves.easeInOutCubic,
+      Scrollable.ensureVisible(
+        context,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
       );
     }
   }
@@ -485,7 +468,6 @@ class TextContainer extends StatelessWidget {
     );
   }
 }
-
 
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({super.key});

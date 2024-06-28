@@ -16,6 +16,44 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'Roboto',
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: WidgetStateProperty.resolveWith<Color>(
+              (Set<WidgetState> states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Colors.black; // Change text color to black on hover
+                }
+                return Colors.white; // Default text color
+              },
+            ),
+            backgroundColor: WidgetStateProperty.resolveWith<Color>(
+              (Set<WidgetState> states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Colors.white; // Change background color to white on hover
+                }
+                return Colors.black; // Default background color
+              },
+            ),
+            overlayColor: WidgetStateProperty.all<Color>(Colors.white),
+            side: WidgetStateProperty.resolveWith<BorderSide>(
+              (Set<WidgetState> states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return const BorderSide(color: Colors.black); // Change border color to black on hover
+                }
+                return const BorderSide(color: Colors.transparent); // Default border color
+              },
+            ),
+            textStyle: WidgetStateProperty.all<TextStyle>(
+              const TextStyle(color: Colors.white),
+            ),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+            elevation: WidgetStateProperty.all<double>(5.0),
+          ),
+        ),
       ),
       home: const PortfolioPage(),
     );
@@ -319,6 +357,7 @@ class PortfolioSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CarouselController controller = CarouselController();
     final List<PortfolioItem> projects = [
       const PortfolioItem(
         title: "Sales Demand Forecast Application",
@@ -360,27 +399,51 @@ class PortfolioSection extends StatelessWidget {
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 32),
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 400,
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    aspectRatio: 16 / 9,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                    viewportFraction: 0.8,
-                  ),
-                  items: projects.map((project) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: project,
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CarouselSlider(
+                      items: projects.map((project) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: project,
+                            );
+                          },
                         );
-                      },
-                    );
-                  }).toList(),
+                      }).toList(),
+                      carouselController: controller,
+                      options: CarouselOptions(
+                        height: 400,
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        aspectRatio: 16 / 9,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        viewportFraction: 0.8,
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                        onPressed: () {
+                          controller.previousPage();
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_forward_ios, color: Colors.black),
+                        onPressed: () {
+                          controller.nextPage();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

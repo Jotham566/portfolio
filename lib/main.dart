@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,85 +34,98 @@ class PortfolioPage extends StatelessWidget {
     final contactKey = GlobalKey();
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromARGB(0, 194, 203, 210), // Light blue color
-              Color.fromARGB(0, 251, 251, 252), // Light sky blue color
-            ],
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/background.jpg', // Your background image asset
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              expandedHeight: 100.0,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Center(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 1000),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Jotham Martin Wambi',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                scrollToSection(scrollController, heroKey);
-                              },
-                              child: const Text('HOME'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                scrollToSection(scrollController, aboutKey);
-                              },
-                              child: const Text('ABOUT'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                scrollToSection(scrollController, portfolioKey);
-                              },
-                              child: const Text('PORTFOLIO'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                scrollToSection(scrollController, contactKey);
-                              },
-                              child: const Text('CONTACT'),
-                            ),
-                          ],
-                        ),
-                      ],
+          // Gradient Overlay
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color.fromARGB(128, 194, 203, 210), // Semi-transparent Light blue color
+                  Color.fromARGB(128, 251, 251, 252), // Semi-transparent Light sky blue color
+                ],
+              ),
+            ),
+          ),
+          // Content
+          CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                expandedHeight: 100.0,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1000),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Jotham Martin Wambi',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  scrollToSection(scrollController, heroKey);
+                                },
+                                child: const Text('HOME'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  scrollToSection(scrollController, aboutKey);
+                                },
+                                child: const Text('ABOUT'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  scrollToSection(scrollController, portfolioKey);
+                                },
+                                child: const Text('PORTFOLIO'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  scrollToSection(scrollController, contactKey);
+                                },
+                                child: const Text('CONTACT'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  HeroSection(key: heroKey),
-                  WhoAmISection(key: aboutKey),
-                  PortfolioSection(key: portfolioKey),
-                  const ExperienceSection(),
-                  const EducationSection(),
-                  const TestimonialsSection(),
-                  ContactSection(key: contactKey),
-                  const Footer(),
-                ],
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    HeroSection(key: heroKey),
+                    WhoAmISection(key: aboutKey),
+                    PortfolioSection(key: portfolioKey),
+                    const ExperienceSection(),
+                    const EducationSection(),
+                    const TestimonialsSection(),
+                    ContactSection(key: contactKey),
+                    const Footer(),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -119,15 +133,18 @@ class PortfolioPage extends StatelessWidget {
   void scrollToSection(ScrollController controller, GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
-      Scrollable.ensureVisible(
-        context,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
+      final position = controller.position;
+      final offset = position.pixels;
+      final targetOffset = (context.findRenderObject() as RenderBox).localToGlobal(Offset.zero).dy + offset;
+
+      controller.animateTo(
+        targetOffset,
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeInOutCubic,
       );
     }
   }
 }
-
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -193,11 +210,8 @@ class HeroSection extends StatelessWidget {
                       const SizedBox(height: 32),
                       ElevatedButton(
                         onPressed: () {},
-                        // onHover shows a white background, black border, and white text
-                        
                         style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                        child: const Text('Contact Jotham', style: TextStyle(color: Colors.white)
-                        ),
+                        child: const Text('Contact Jotham'),
                       ),
                       const SizedBox(height: 32),
                       Row(
@@ -212,7 +226,7 @@ class HeroSection extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 500, // Set a fixed width for the image
+                  width: 300, // Set a fixed width for the image
                   child: Image.asset(
                     'assets/business_analysis.jpg',
                     fit: BoxFit.cover,
@@ -226,8 +240,6 @@ class HeroSection extends StatelessWidget {
     );
   }
 }
-
-
 
 class WhoAmISection extends StatelessWidget {
   const WhoAmISection({super.key});
@@ -302,13 +314,40 @@ class WhoAmISection extends StatelessWidget {
   }
 }
 
-
-
 class PortfolioSection extends StatelessWidget {
   const PortfolioSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<PortfolioItem> projects = [
+      const PortfolioItem(
+        title: "Sales Demand Forecast Application",
+        description: "This application helps Marketing & Sales identify trends in customer purchasing behavior and plan for future demand. Predictive Dashboard Course using Machine Learning.",
+        image: 'assets/project1.jpg',
+        imageOnLeft: true,
+      ),
+      const PortfolioItem(
+        title: "Product Price Recommendation",
+        description: "This application helps Marketing & R&D Teams automate product price and predict new products. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
+        image: 'assets/project2.jpg',
+        imageOnLeft: false,
+      ),
+      const PortfolioItem(
+        title: "Customer Churn Prediction",
+        description: "This application helps Customer Success & Marketing Teams identify customers at risk of leaving. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
+        image: 'assets/project3.jpg',
+        imageOnLeft: true,
+      ),
+      const PortfolioItem(
+        title: "Employee Attrition Prediction",
+        description: "This application helps HR & Management Teams identify employees at risk of leaving. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
+        image: 'assets/project4.jpg',
+        imageOnLeft: false,
+      ),
+      
+      // Add more PortfolioItem instances here
+    ];
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 64),
       child: Center(
@@ -326,24 +365,35 @@ class PortfolioSection extends StatelessWidget {
                 ],
               ),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Portfolio",
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 32),
-                PortfolioItem(
-                  title: "Sales Demand Forecast Application",
-                  description: "This application helps Marketing & Sales identify trends in customer purchasing behavior and plan for future demand. Predictive Dashboard Course using Machine Learning.",
-                  image: 'assets/project1.jpg',
-                ),
-                SizedBox(height: 32),
-                PortfolioItem(
-                  title: "Product Price Recommendation",
-                  description: "This application helps Marketing & R&D Teams automate product price and predict new products. Part of my 101 Machine Learning Algorithms applied to 101 Business Problems Course using Machine Learning.",
-                  image: 'assets/project2.jpg',
+                const SizedBox(height: 32),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 400,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 16/9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
+                  ),
+                  items: projects.map((project) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: project,
+                        );
+                      },
+                    );
+                  }).toList(),
                 ),
               ],
             ),
@@ -358,13 +408,64 @@ class PortfolioItem extends StatelessWidget {
   final String title;
   final String description;
   final String image;
+  final bool imageOnLeft; // New parameter to control image position
 
   const PortfolioItem({
     super.key,
     required this.title,
     required this.description,
     required this.image,
+    this.imageOnLeft = true, // Default to true for the first project
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: imageOnLeft
+          ? [
+              ImageContainer(image: image),
+              const SizedBox(width: 32),
+              Expanded(
+                child: TextContainer(title: title, description: description),
+              ),
+            ]
+          : [
+              Expanded(
+                child: TextContainer(title: title, description: description),
+              ),
+              const SizedBox(width: 32),
+              ImageContainer(image: image),
+            ],
+    );
+  }
+}
+
+class ImageContainer extends StatelessWidget {
+  final String image;
+
+  const ImageContainer({super.key, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        image: DecorationImage(
+          image: AssetImage(image),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+class TextContainer extends StatelessWidget {
+  final String title;
+  final String description;
+
+  const TextContainer({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -375,18 +476,6 @@ class PortfolioItem extends StatelessWidget {
         const SizedBox(height: 16),
         Text(description),
         const SizedBox(height: 16),
-        Container(
-          width: 300,
-          height: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
@@ -396,7 +485,6 @@ class PortfolioItem extends StatelessWidget {
     );
   }
 }
-
 
 
 class ExperienceSection extends StatelessWidget {
@@ -492,8 +580,6 @@ class ExperienceItem extends StatelessWidget {
   }
 }
 
-
-
 class EducationSection extends StatelessWidget {
   const EducationSection({super.key});
 
@@ -563,8 +649,6 @@ class EducationItem extends StatelessWidget {
     );
   }
 }
-
-
 
 class TestimonialsSection extends StatelessWidget {
   const TestimonialsSection({super.key});
@@ -651,7 +735,6 @@ class TestimonialItem extends StatelessWidget {
     );
   }
 }
-
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -759,6 +842,3 @@ class ContactSection extends StatelessWidget {
     );
   }
 }
-
-
-
